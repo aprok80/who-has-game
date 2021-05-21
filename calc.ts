@@ -1,5 +1,7 @@
+let eintest:any = 666
+
 function welcomeMessage( ip: string ) {  
-    return new Response(`Hello, welcome!!!!, Your IP is: ${ip}`, {
+    return new Response(`Hello, welcome!!!!, Your IP is: ${ip}, the Value is: ${eintest} Type is ${typeof eintest}`, {
         headers: {
             'content-type': 'text/plain',
             'test-header':  '123'
@@ -16,6 +18,7 @@ function errorResponse() {
         status: 405
     })
 }
+
 
 function calculate( par1: number, par2: number, op: string ): number | string {
     if( op === "add" ) {
@@ -39,6 +42,19 @@ async function handleRequest( request: any ) {
         return welcomeMessage(ip)
     }
     if( request?.method === "POST" ) {
+        const requestData = await request.text()
+        console.log(requestData)
+        eintest = requestData
+        return new Response( `${requestData}`, {
+            headers: {
+                'content-type': 'text/plain',
+                'test-header':  '123'
+            },
+            status: 200
+        })
+    }
+    /*
+    if( request?.method === "POST" ) {
         const requestData = await request.json()
         const { par1, par2, op } = requestData
         const returnedValue = calculate( par1, par2, op )
@@ -53,7 +69,7 @@ async function handleRequest( request: any ) {
             },
             status: statusCode
         })
-    }
+    }*/
     return errorResponse()
 }
 addEventListener('fetch', (event) => {
