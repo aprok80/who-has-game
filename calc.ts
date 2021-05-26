@@ -1,7 +1,8 @@
 let eintest:any = 666
+let envtest = Deno.env.get("meinenvtest")
 
 function welcomeMessage( ip: string ) {  
-    return new Response(`Hello, welcome!!!!, Your IP is: ${ip}, the Value is: ${eintest} Type is ${typeof eintest}`, {
+    return new Response(`Hello, welcome!!!!, Your IP is: ${ip}, the Value is: ${eintest} Type is ${typeof eintest}, the Env Var is: ${Deno.env.get("meinenvtest")}`, {
         headers: {
             'content-type': 'text/plain',
             'test-header':  '123'
@@ -45,6 +46,8 @@ async function handleRequest( request: any ) {
         const requestData = await request.text()
         console.log(requestData)
         eintest = requestData
+        Deno.env.set( "meinenvtest", requestData )
+        envtest = Deno.env.get("meinenvtest")
         return new Response( `${requestData}`, {
             headers: {
                 'content-type': 'text/plain',
