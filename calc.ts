@@ -42,7 +42,7 @@ async function handleRequest( request: any ) {
         const ip = request.headers.get("x-forwarded-for");
         return welcomeMessage(ip)
     }
-    if( request?.method === "POST" ) {
+/*     if( request?.method === "POST" ) {
         const requestData = await request.text()
         console.log(requestData)
         eintest = requestData
@@ -56,7 +56,7 @@ async function handleRequest( request: any ) {
             status: 200
         })
     }
-    /*
+ */
     if( request?.method === "POST" ) {
         const requestData = await request.json()
         const { par1, par2, op } = requestData
@@ -72,7 +72,7 @@ async function handleRequest( request: any ) {
             },
             status: statusCode
         })
-    }*/
+    }
     return errorResponse()
 }
 addEventListener('fetch', (event) => {
