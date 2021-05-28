@@ -61,7 +61,7 @@ async function handleRequest( request: any ) {
         const requestData = await request.json()
         const { par1, par2, op } = requestData
         const returnedValue = calculate( par1, par2, op )
-        Deno.env.set( "meinenvtest", op )
+        //Deno.env.set( "meinenvtest", op )
         let statusCode = 405
         if( typeof returnedValue === 'number' ) {
             statusCode = 200
